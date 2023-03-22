@@ -4,10 +4,6 @@ const apiRoutes = require("./routes/index");
 const { PORT } = require('./config/serverConfig');
 const db = require('./models/index');
 
-// const UserRepository = require("./repository/index");
-// const user = new UserRepository();
-// const { UserService } = require("./services/index");
-
 const setupAndStartServer = async () => {
     const app = express();
 
@@ -20,12 +16,6 @@ const setupAndStartServer = async () => {
         if (process.env.SYNC_DB) {
             db.sequelize.sync({ alter: true });
         }
-
-        // const user = new UserService();
-        // const token = user.generateToken({ email: 'navneet@gmail.com', id: 1 });
-        // console.log(token);
-
-        // console.log(user.verifyToken(token));
     });
 }
 
