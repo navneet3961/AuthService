@@ -3,7 +3,7 @@ const { User } = require("../models/index");
 class UserRepository {
     async createUser(data) {
         try {
-            const user = User.create(data);
+            const user = await User.create(data);
             return user;
         } catch (error) {
             console.log("Something went wrong in create in User Repository");
@@ -13,7 +13,7 @@ class UserRepository {
 
     async deleteUser(userId) {
         try {
-            const result = User.destroy(userId);
+            const result = await User.destroy(userId);
             return result;
         } catch (error) {
             console.log("Something went wrong in delete in User Repository");
@@ -23,7 +23,7 @@ class UserRepository {
 
     async getUserById(userId) {
         try {
-            const user = User.findByPk(userId, {
+            const user = await User.findByPk(userId, {
                 attributes: ['email', 'id']
             });
             return user;
@@ -35,9 +35,8 @@ class UserRepository {
 
     async getUserByEmail(userEmail) {
         try {
-            const user = User.findOne({
-                attributes: ['password']
-            }, {
+            const user = await User.findOne({
+                attributes: ['password', 'id'],
                 where: {
                     email: userEmail
                 }
@@ -51,7 +50,7 @@ class UserRepository {
 
     async getAllUsers(data) {
         try {
-            const users = User.findAll({
+            const users = await User.findAll({
                 attributes: ['email', 'id']
             }, {
                 where: data
@@ -65,7 +64,7 @@ class UserRepository {
 
     async updateUser(userId, data) {
         try {
-            const result = User.update(data, {
+            const result = await User.update(data, {
                 where: {
                     id: userId
                 }
