@@ -3,14 +3,12 @@ const bodyParser = require("body-parser");
 const apiRoutes = require("./routes/index");
 const { PORT } = require('./config/serverConfig');
 
-// const UserRepository = require("./repository/user-repository");
+// const UserRepository = require("./repository/index");
 // const user = new UserRepository();
+// const { UserService } = require("./services/index");
 
 const setupAndStartServer = async () => {
     const app = express();
-
-    // const found = await user.getAllUsers();
-    // console.log(found);
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,6 +16,12 @@ const setupAndStartServer = async () => {
 
     app.listen(PORT, async () => {
         console.log(`Server has started at ${PORT}`);
+
+        // const user = new UserService();
+        // const token = user.generateToken({ email: 'navneet@gmail.com', id: 1 });
+        // console.log(token);
+
+        // console.log(user.verifyToken(token));
     });
 }
 

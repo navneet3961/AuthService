@@ -67,7 +67,7 @@ const update = async (req, res) => {
 
 const get = async (req, res) => {
     try {
-        const user = await userService.getUser(req.params.id);
+        const user = await userService.getUserById(req.params.id);
         return res.status(200).json({
             data: user,
             success: true,

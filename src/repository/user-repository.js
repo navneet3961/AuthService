@@ -21,7 +21,7 @@ class UserRepository {
         }
     }
 
-    async getUser(userId) {
+    async getUserById(userId) {
         try {
             const user = User.findByPk(userId, {
                 attributes: ['email', 'id']
@@ -33,14 +33,30 @@ class UserRepository {
         }
     }
 
+    async getUserByEmail(userEmail) {
+        try {
+            const user = User.findOne({
+                attributes: ['password']
+            }, {
+                where: {
+                    email: userEmail
+                }
+            });
+            return user;
+        } catch (error) {
+            console.log("Something went wrong in get in User Repository");
+            throw error;
+        }
+    }
+
     async getAllUsers(data) {
         try {
-            const user = User.findAll({
+            const users = User.findAll({
                 attributes: ['email', 'id']
             }, {
                 where: data
             });
-            return user;
+            return users;
         } catch (error) {
             console.log("Something went wrong in getAll in User Repository");
             throw error;
