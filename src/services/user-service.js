@@ -74,6 +74,27 @@ class UserService {
         }
     }
 
+    async isAuthenticated(token) {
+        try {
+            const userData = this.#verifyToken(token);
+
+            if (!userData) {
+                throw { error: "Invalid token" };
+            }
+
+            const user = await this.getUserById(userData.id);
+
+            if (!user) {
+                throw { error: "User doesn't exist with the corresponding token" };
+            }
+
+            return user.id;
+        } catch (error) {
+            console.log("Not an authenticated data");
+            throw error;
+        }
+    }
+
     #generateToken(user) {
         try {
             const result = jwt.sign(user, JWT_KEY, { expiresIn: "1h" });
